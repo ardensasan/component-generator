@@ -61,21 +61,33 @@ export default (plop) => {
       },
     ],
     actions: [
-      {
-        type: "add",
-        path: "src/components/{{titleCase name}}/{{titleCase name}}.tsx",
-        templateFile: "src/templates/components/DenseTable.hbs",
-      },
-      {
-        type: "add",
-        path: "src/components/{{titleCase name}}/sagas.ts",
-        templateFile: "src/templates/sagas/DenseTable.hbs",
-      },
-      {
-        type: "add",
-        path: "src/components/{{titleCase name}}/reducers.ts",
-        templateFile: "src/templates/reducers/DenseTable.hbs",
-      },
+    //   {
+    //     path: './src/App.tsx',
+    //     pattern: /(\/\/ ROUTES HERE)/g,
+    //     template: '\n<Route exact path="/{{snakeCase name}} component={{titleCase name}}/>\n',
+    //     type: 'modify',
+    // },
+    {
+      path: './src/App.tsx',
+      pattern: /(\/\/COMPONENT IMPORTS)/g,
+      template: 'import {{titleCase name}} from "./src/components/{{titleCase name}}/{{titleCase name}}"\n$1',
+      type: 'modify',
+  },
+      // {
+      //   type: "add",
+      //   path: "src/components/{{titleCase name}}/{{titleCase name}}.tsx",
+      //   templateFile: "src/templates/components/DenseTable.hbs",
+      // },
+      // {
+      //   type: "add",
+      //   path: "src/components/{{titleCase name}}/sagas.ts",
+      //   templateFile: "src/templates/sagas/DenseTable.hbs",
+      // },
+      // {
+      //   type: "add",
+      //   path: "src/components/{{titleCase name}}/reducers.ts",
+      //   templateFile: "src/templates/reducers/DenseTable.hbs",
+      // },
     ],
   });
 };
