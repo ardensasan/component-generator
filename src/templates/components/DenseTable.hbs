@@ -8,15 +8,16 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from 'react';
+import { get{{pascalCase name}}List } from './actions'
 const {{titleCase name}} = () => {
-const {{camelCase name}}List = useSelector(
+  const dispatch = useDispatch();
+  const {{camelCase name}}List = useSelector(
     (state: any) => state.{{snakeCase name}}
   );
-console.log('%c 🥗 AwList: ', 'font-size:20px;background-color: #B03734;color:#fff;', {{titleCase name}});
-useEffect (()=>{
-  const dispatch = useDispatch();
-  dispatch(get{{pascalCase name}}List );
-},[])
+  console.log('%c 🍡 {{camelCase name}}List: ', 'font-size:20px;background-color: #E41A6A;color:#fff;', {{camelCase name}}List);
+  useEffect (()=>{
+    dispatch(get{{pascalCase name}}List() );
+  },[dispatch])
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -47,7 +48,7 @@ useEffect (()=>{
         </TableBody>
       </Table>
     </TableContainer>
-  );
-}
+    );
+  }
 
 export default {{titleCase name}}

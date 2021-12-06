@@ -61,33 +61,53 @@ export default (plop) => {
       },
     ],
     actions: [
-    //   {
-    //     path: './src/App.tsx',
-    //     pattern: /(\/\/ ROUTES HERE)/g,
-    //     template: '\n<Route exact path="/{{snakeCase name}} component={{titleCase name}}/>\n',
-    //     type: 'modify',
-    // },
-    {
-      path: './src/App.tsx',
-      pattern: /(\/\/COMPONENT IMPORTS)/g,
-      template: 'import {{titleCase name}} from "./src/components/{{titleCase name}}/{{titleCase name}}"\n$1',
-      type: 'modify',
-  },
-      // {
-      //   type: "add",
-      //   path: "src/components/{{titleCase name}}/{{titleCase name}}.tsx",
-      //   templateFile: "src/templates/components/DenseTable.hbs",
-      // },
-      // {
-      //   type: "add",
-      //   path: "src/components/{{titleCase name}}/sagas.ts",
-      //   templateFile: "src/templates/sagas/DenseTable.hbs",
-      // },
-      // {
-      //   type: "add",
-      //   path: "src/components/{{titleCase name}}/reducers.ts",
-      //   templateFile: "src/templates/reducers/DenseTable.hbs",
-      // },
+      {
+        path: "./src/App.tsx",
+        pattern: /(<\/Routes)/g,
+        template:
+          '\t<Route path="/{{snakeCase name}}" element={ <{{titleCase name}}/> }/>\n$1',
+        type: "modify",
+      },
+      {
+        path: "./src/App.tsx",
+        pattern: /(\/\/COMPONENT IMPORTS)/g,
+        template:
+          'import {{titleCase name}} from "./components/{{titleCase name}}/{{titleCase name}}"\n$1',
+        type: "modify",
+      },
+      {
+        path: "./src/common/reducers.ts",
+        pattern: /(\/\/REDUCER IMPORTS)/g,
+        template:
+          'import {{camelCase name}} from "../components/{{titleCase name}}/reducers"\n$1',
+        type: "modify",
+      },
+      {
+        path: "./src/common/reducers.ts",
+        pattern: /(\/\/REDUCERS)/g,
+        template: "{{camelCase name}} : {{camelCase name}}, \n$1",
+        type: "modify",
+      },
+      {
+        type: "add",
+        path: "./src/components/{{titleCase name}}/{{titleCase name}}.tsx",
+        templateFile: "src/templates/components/DenseTable.hbs",
+      },
+      {
+        type: "add",
+        path: "src/components/{{titleCase name}}/actions.ts",
+        templateFile: "src/templates/actions/DenseTable.hbs",
+      },
+      {
+        type: "add",
+        path: "src/components/{{titleCase name}}/reducers.ts",
+        templateFile: "src/templates/reducers/DenseTable.hbs",
+      },
+      {
+        type: "add",
+        path: "src/components/{{titleCase name}}/sagas.ts",
+        templateFile: "src/templates/sagas/DenseTable.hbs",
+      },
     ],
   });
 };
