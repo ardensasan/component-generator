@@ -1,0 +1,16 @@
+import { takeLatest, put } from "@redux-saga/core/effects"
+import axios from 'axios'
+
+async function* get{{pascalCase name}}List(){
+    const config = {
+        method: "get",
+        url: "/api/{{lowerCase name}}"
+    }
+   const result = {payload: "aaaaaaaaaaaaa"}
+   yield put({type: "GET_{{constantCase name}}_LIST",payload: result.payload})
+}
+
+
+function* watch{{pascalCase name}}(){
+    yield takeLatest("GET_{{constantCase name}}_LIST_REQUESTED",get{{pascalCase name}}List)   
+}
