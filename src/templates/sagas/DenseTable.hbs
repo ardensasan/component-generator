@@ -1,7 +1,7 @@
-import { takeLatest, put } from "@redux-saga/core/effects"
+import { takeLatest, put, spawn } from "@redux-saga/core/effects"
 import axios from 'axios'
 
-async function* get{{pascalCase name}}List(){
+function* get{{pascalCase name}}List(){
     const config = {
         method: "get",
         url: "/api/{{lowerCase name}}"
@@ -11,6 +11,10 @@ async function* get{{pascalCase name}}List(){
 }
 
 
-function* watch{{pascalCase name}}(){
+function* watch{{pascalCase name}}Requested(){
     yield takeLatest("GET_{{constantCase name}}_LIST_REQUESTED",get{{pascalCase name}}List)   
+}
+
+export default function* {{camelCase name}}RootSaga(){
+    yield spawn(watch{{pascalCase name}}Requested)
 }

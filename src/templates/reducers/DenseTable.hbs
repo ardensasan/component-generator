@@ -1,7 +1,7 @@
 const {{camelCase name}}Reducer = (state={},action:any) => {
     switch(action.type){
         case "GET_{{constantCase name}}_LIST": 
-        return {...state,...action.payload}
+        return {...state,{{camelCase name}}List: action.payload}
         default:
             return state;
     }

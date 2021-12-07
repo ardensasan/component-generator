@@ -89,6 +89,18 @@ export default (plop) => {
         type: "modify",
       },
       {
+        path: "./src/common/sagas.ts",
+        pattern: /(\/\/SAGA IMPORTS)/g,
+        template: "import {{camelCase name}}RootSaga from '../components/{{titleCase name}}/sagas'\n$1",
+        type: "modify",
+      },
+      {
+        path: "./src/common/sagas.ts",
+        pattern: /(\/\/SPAWN SAGAS)/g,
+        template: "yield spawn({{camelCase name}}RootSaga)\n$1",
+        type: "modify",
+      },
+      {
         type: "add",
         path: "./src/components/{{titleCase name}}/{{titleCase name}}.tsx",
         templateFile: "src/templates/components/DenseTable.hbs",
