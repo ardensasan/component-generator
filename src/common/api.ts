@@ -1,0 +1,1 @@
+export const apiRoot= "https://template-rdn-api.vercel.app/api/"

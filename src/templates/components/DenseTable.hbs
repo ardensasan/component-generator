@@ -14,7 +14,6 @@ const {{titleCase name}} = () => {
   const {{camelCase name}}List = useSelector(
     (state: any) => state.{{snakeCase name}}
   );
-  console.log('%c 🍡 {{camelCase name}}List: ', 'font-size:20px;background-color: #E41A6A;color:#fff;', {{camelCase name}}List);
   useEffect (()=>{
     dispatch(get{{pascalCase name}}List() );
   },[dispatch])

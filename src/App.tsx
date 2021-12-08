@@ -5,6 +5,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import allReducers from "./common/reducers";
 import rootSaga from "./common/sagas";
 import createSagaMiddleware from "redux-saga";
+import Users from "./components/Users/Users";
 //COMPONENT IMPORTS
 const App = () => {
   const composeEnhancers =
@@ -21,6 +22,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" />
+            <Route path="/users" element={<Users />} />
           </Routes>
         </BrowserRouter>
       </div>

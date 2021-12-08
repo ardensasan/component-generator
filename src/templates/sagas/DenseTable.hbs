@@ -1,15 +1,17 @@
 import { takeLatest, put, spawn } from "@redux-saga/core/effects"
 import axios from 'axios'
+import {apiRoot} from "../../common/api";
+import { getList } from "../../utils/request";
 
 function* get{{pascalCase name}}List(){
-    const config = {
-        method: "get",
-        url: "/api/{{lowerCase name}}"
-    }
-   const result = {payload: "aaaaaaaaaaaaa"}
-   yield put({type: "GET_{{constantCase name}}_LIST",payload: result.payload})
+  const config = {
+    method: "get",
+    url: `${apiRoot}{{lowerCase name}}`,
+  };
+  const {data} = yield call(getList,config);
+  yield put({ type: "GET_{{constantCase name}}_LIST", payload: data });
+   
 }
-
 
 function* watch{{pascalCase name}}Requested(){
     yield takeLatest("GET_{{constantCase name}}_LIST_REQUESTED",get{{pascalCase name}}List)   
