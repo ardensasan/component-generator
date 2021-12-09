@@ -1,14 +1,16 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import {
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableBody,
+  TableCell,
+  Paper,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Fragment, useEffect } from "react";
 import { getUsersList } from "./actions";
-import New from "./Dialog/New";
+// import New from "./Dialog/New";
 import fields from "./tableFields";
 import { toTitleCase } from "../../utils/string";
 const Users = () => {
@@ -17,10 +19,11 @@ const Users = () => {
   useEffect(() => {
     dispatch(getUsersList());
   }, [dispatch]);
-
+//TODO handlebar condition dont integrate api
+//TODO 
   return (
     <Fragment>
-      <New />
+      {/* <New /> */}
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -32,13 +35,15 @@ const Users = () => {
           </TableHead>
           <TableBody>
             {usersList.map((user: any) => {
-              return <Fragment>
-                <TableRow>
-                {fields.map(({ key }) => {
-                  return <TableCell>{user[key]}</TableCell>;
-                })}
-                </TableRow>
-              </Fragment>
+              return (
+                <Fragment>
+                  <TableRow>
+                    {fields.map(({ key }) => {
+                      return <TableCell>{user[key]}</TableCell>;
+                    })}
+                  </TableRow>
+                </Fragment>
+              );
             })}
           </TableBody>
         </Table>

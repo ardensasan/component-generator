@@ -1,5 +1,8 @@
 const pluralize = require("pluralize");
+const recursive = require("inquirer-recursive");
 module.exports = (plop) => {
+  plop.inquirer.registerPrompt("recursive", recursive);
+
   const modifyFiles = (data) => {
     data.name = pluralize.singular(data.name);
     return [
@@ -13,7 +16,7 @@ module.exports = (plop) => {
         path: "./src/App.tsx",
         pattern: /(\/\/COMPONENT IMPORTS)/g,
         template:
-          'import {{titleCase name}} from "./components/{{titleCase name}}/{{titleCase name}}"\n$1',
+          'import {{titleCase name}} from "./components/{{titleCase name}}"\n$1',
         type: "modify",
       },
       {
@@ -67,58 +70,13 @@ module.exports = (plop) => {
         path: "src/components/{{titleCase name}}/sagas.ts",
         templateFile: "src/templates/sagas/DenseTable.hbs",
       },
+      {
+        type: "add",
+        path: "./src/components/{{titleCase name}}/tableFields.ts",
+        templateFile: "src/templates/tableFields.hbs",
+      },
     ];
   };
-  // plop.setActionType("addAPI", ({ name }) => {
-  //   console.log(
-  //     "%c 🍗 plop: ",
-  //     "font-size:20px;background-color: #FFDD4D;color:#fff;",
-  //     plop
-  //   );
-  //   plop.load();
-  // });
-
-  // plop.setGenerator("Table with dialog", {
-  //   description: "Create a component with table and dialog",
-  //   prompts: [
-  //     {
-  //       type: "input",
-  //       name: "name",
-  //       message: "What is your api name",
-  //     },
-  //     {
-  //       type: "confirm",
-  //       name: "api",
-  //       message: "",
-  //     },
-  //   ],
-  //   actions: [
-  //     {
-  //       type: "addAPI",
-  //     },
-  //   ],
-  // });
-
-  // plop.setGenerator("Table without dialog", {
-  //   description: "Create a component with table",
-  //   prompts: [
-  //     {
-  //       type: "input",
-  //       name: "name",
-  //       message: "What is your api name",
-  //     },
-  //     {
-  //       type: "confirm",
-  //       name: "api",
-  //       message: "",
-  //     },
-  //   ],
-  //   actions: [
-  //     {
-  //       type: "addAPI",
-  //     },
-  //   ],
-  // });
 
   plop.setGenerator("Select table with dialog", {
     description: "Create a component with select table and dialog",
@@ -127,6 +85,37 @@ module.exports = (plop) => {
         type: "input",
         name: "name",
         message: "What is your api name",
+        validate: (value) => {
+          if (/.+/.test(value)) {
+            return true;
+          }
+          return "Field name is required";
+        },
+      },
+      {
+        type: "confirm",
+        name: "integrate",
+        message: "Integrate API",
+        default: true,
+      },
+      {
+        type: "recursive",
+        name: "fieldItems",
+        message: "Add table column",
+        default: true,
+        prompts: [
+          {
+            type: "input",
+            name: "key",
+            message: "What is the field name?",
+            validate: (value) => {
+              if (/.+/.test(value)) {
+                return true;
+              }
+              return "Field name is required";
+            },
+          },
+        ],
       },
     ],
     actions: (data) => {

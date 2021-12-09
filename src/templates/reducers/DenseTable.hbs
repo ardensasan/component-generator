@@ -1,4 +1,4 @@
-const {{camelCase name}}Reducer = (state={},action:any) => {
+const {{camelCase name}}Reducer = (state={ {{camelCase name}}List:[]},action:any) => {
     switch(action.type){
         case "GET_{{constantCase name}}_LIST": 
         return {...state,{{camelCase name}}List: action.payload}

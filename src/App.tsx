@@ -23,7 +23,7 @@ const App = () => {
           <Routes>
             <Route path="/" />
             <Route path="/users" element={<Users />} />
-          </Routes>
+</Routes>
         </BrowserRouter>
       </div>
     </Provider>

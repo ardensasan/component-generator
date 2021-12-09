@@ -7,47 +7,46 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from 'react';
+import { useEffect, Fragment } from 'react';
+import { toTitleCase } from '../../utils/string';
+import fields from './tableFields'
 import { get{{pascalCase name}}List } from './actions'
 const {{titleCase name}} = () => {
   const dispatch = useDispatch();
   const {{camelCase name}}List = useSelector(
-    (state: any) => state.{{snakeCase name}}
+    (state: any) => state.{{snakeCase name}}.{{snakeCase name}}List
   );
-  useEffect (()=>{
+   useEffect (()=> {
     dispatch(get{{pascalCase name}}List() );
   },[dispatch])
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {{!-- {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
+    <Fragment>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              {fields.map(({ key }) => {
+                return <TableCell>{toTitleCase(key)}</TableCell>;
+              })}
             </TableRow>
-          ))} --}}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    );
-  }
+          </TableHead>
+          <TableBody>
+            { {{camelCase name}}List.map(({{camelCase name}}: any) => {
+              return (
+                <Fragment>
+                  <TableRow>
+                    {fields.map(({ key }) => {
+                      return <TableCell>{ {{camelCase name}}[key] }</TableCell>;
+                    })}
+                  </TableRow>
+                </Fragment>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Fragment>
+  )
+}
 
 export default {{titleCase name}}
