@@ -1,8 +1,13 @@
 import { combineReducers } from 'redux'
-import users from "../components/Users/reducers"
+import user from "../components/User/reducer"
 //REDUCER IMPORTS
+
+const defaultReducer = () =>{
+    
+}
+
 const allReducer = combineReducers({
-users : users, 
+user : user, 
 //REDUCERS
 })
 export default allReducer

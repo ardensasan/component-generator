@@ -16,31 +16,31 @@ module.exports = (plop) => {
         path: "./src/App.tsx",
         pattern: /(\/\/COMPONENT IMPORTS)/g,
         template:
-          'import {{titleCase name}} from "./components/{{titleCase name}}"\n$1',
+          'import {{titleCase name}} from "./component/{{titleCase name}}"\n$1',
         type: "modify",
       },
       {
-        path: "./src/common/reducers.ts",
+        path: "./src/common/reducer.ts",
         pattern: /(\/\/REDUCER IMPORTS)/g,
         template:
-          'import {{camelCase name}} from "../components/{{titleCase name}}/reducers"\n$1',
+          'import {{camelCase name}} from "../component/{{titleCase name}}/reducer"\n$1',
         type: "modify",
       },
       {
-        path: "./src/common/reducers.ts",
+        path: "./src/common/reducer.ts",
         pattern: /(\/\/REDUCERS)/g,
         template: "{{camelCase name}} : {{camelCase name}}, \n$1",
         type: "modify",
       },
       {
-        path: "./src/common/sagas.ts",
+        path: "./src/common/saga.ts",
         pattern: /(\/\/SAGA IMPORTS)/g,
         template:
-          "import {{camelCase name}}RootSaga from '../components/{{titleCase name}}/sagas'\n$1",
+          "import {{camelCase name}}RootSaga from '../component/{{titleCase name}}/saga'\n$1",
         type: "modify",
       },
       {
-        path: "./src/common/sagas.ts",
+        path: "./src/common/saga.ts",
         pattern: /(\/\/SPAWN SAGAS)/g,
         template: "yield spawn({{camelCase name}}RootSaga)\n$1",
         type: "modify",
@@ -52,28 +52,28 @@ module.exports = (plop) => {
     return [
       {
         type: "add",
-        path: "./src/components/{{titleCase name}}/index.tsx",
-        templateFile: "src/templates/components/DenseTable.hbs",
+        path: "./src/component/{{titleCase name}}/index.tsx",
+        templateFile: "src/template/component/DenseTable.hbs",
       },
       {
         type: "add",
-        path: "src/components/{{titleCase name}}/actions.ts",
-        templateFile: "src/templates/actions/DenseTable.hbs",
+        path: "src/component/{{titleCase name}}/action.ts",
+        templateFile: "src/template/action/DenseTable.hbs",
       },
       {
         type: "add",
-        path: "src/components/{{titleCase name}}/reducers.ts",
-        templateFile: "src/templates/reducers/DenseTable.hbs",
+        path: "src/component/{{titleCase name}}/reducer.ts",
+        templateFile: "src/template/reducer/DenseTable.hbs",
       },
       {
         type: "add",
-        path: "src/components/{{titleCase name}}/sagas.ts",
-        templateFile: "src/templates/sagas/DenseTable.hbs",
+        path: "src/component/{{titleCase name}}/saga.ts",
+        templateFile: "src/template/saga/DenseTable.hbs",
       },
       {
         type: "add",
-        path: "./src/components/{{titleCase name}}/tableFields.ts",
-        templateFile: "src/templates/tableFields.hbs",
+        path: "./src/component/{{titleCase name}}/tableFields.ts",
+        templateFile: "src/template/tableFields.hbs",
       },
     ];
   };

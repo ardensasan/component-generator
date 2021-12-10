@@ -2,10 +2,10 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
-import allReducers from "./common/reducers";
-import rootSaga from "./common/sagas";
+import allReducers from "./common/reducer";
+import rootSaga from "./common/saga";
 import createSagaMiddleware from "redux-saga";
-import Users from "./components/Users/Users";
+import User from "./components/User";
 //COMPONENT IMPORTS
 const App = () => {
   const composeEnhancers =
@@ -22,8 +22,8 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" />
-            <Route path="/users" element={<Users />} />
-</Routes>
+            <Route path="/user" element={<User />} />
+          </Routes>
         </BrowserRouter>
       </div>
     </Provider>

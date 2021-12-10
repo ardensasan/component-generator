@@ -1,0 +1,39 @@
+import { takeLatest, call, put, spawn } from "@redux-saga/core/effects"
+import {apiRoot} from "../../common/api";
+import request from "../../utils/request";
+
+function* get{{pascalCase name}}List(){
+  const config = {
+    method: "get",
+    url: `${apiRoot}{{lowerCase name}}`,
+  }
+  const {data} = yield call(request,config)
+  yield put({ type: "GET_{{constantCase name}}_LIST",payload: data})
+}
+
+function* add{{pascalCase name}}(data: any) {
+  const config = {
+    method: "post",
+    url: `${apiRoot}{{lowerCase name}}`,
+    data
+  }
+  const {data:result} = yield call(request,config)
+  if(result === "ADD_USER_REQUESTED"){
+    yield put({type: "GET_{{constantCase name}}_LIST"})
+    return
+  } 
+  yield put({ type: result})
+}
+
+function* watchAdd{{pascalCase name}}() {
+  yield takeLatest("ADD_{{constantCase name}}_REQUESTED", add{{pascalCase name}});
+}
+
+function* watch{{pascalCase name}}Requested(){
+    yield takeLatest("GET_{{constantCase name}}_LIST_REQUESTED",get{{pascalCase name}}List)   
+}
+
+export default function* {{camelCase name}}RootSaga(){
+    yield spawn(watch{{pascalCase name}}Requested)
+    yield spawn(watchAdd{{pascalCase name}});
+}
