@@ -11,10 +11,29 @@ export const addUser = (data: any) => {
   };
 };
 
-
-export const editUser = (data: any) => {
+export const updateUser = (data: any) => {
   return {
-    type: "EDIT_USER_REQUESTED",
+    type: "UPDATE_USER_REQUESTED",
     data
   };
 };
+
+export const getUserDetails = (id: string) => {
+  return {
+    type: "GET_USER_DETAILS_REQUESTED",
+    id
+  };
+};
+
+export const openDialog = () =>{
+  return {
+    type: "OPEN_DIALOG"
+  }
+}
+
+export const closeDialog = () => {
+  return {
+    type: "CLOSE_DIALOG"
+  }
+}
+

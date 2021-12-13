@@ -1,7 +1,6 @@
 import { takeLatest, call, put, spawn } from "@redux-saga/core/effects";
 import { apiRoot } from "../../common/api";
 import request from "../../utils/request";
-
 function* getUserList() {
   const config = {
     method: "get",
@@ -28,22 +27,41 @@ function* addUser(data: any) {
   yield put({ type: result });
 }
 
-function* editUser(data: any) {
+function* updateUser(data: any) {
   const config = {
     method: "put",
     url: `${apiRoot}user`,
-    data,
+    data
   };
   const { data: result } = yield call(request, config);
-  if (result === "EDIT_USER_REQUESTED") {
+  if (result === "SUCCESS") {
     yield put({ type: "GET_USER_LIST_REQUESTED" });
     return;
   }
   yield put({ type: result });
 }
 
-function* watchEditUser() {
-  yield takeLatest("EDIT_USER_REQUESTED", editUser);
+function* getUserDetails(data:any){
+  const config = {
+    method: "get",
+    url: `${apiRoot}user/${data.id}`,
+    data
+  };
+  const { data: result } = yield call(request, config);
+  if(result.type === "SUCCESS"){
+    yield put({ type: "GET_USER_DETAILS",payload: result.result });
+    return;
+  }
+
+  yield put({ type: result });
+}
+
+function* watchGetUserDetails(){
+  yield takeLatest("GET_USER_DETAILS_REQUESTED", getUserDetails);
+}
+
+function* watchUpdateUser() {
+  yield takeLatest("UPDATE_USER_REQUESTED", updateUser);
 }
 
 function* watchGetUserList() {
@@ -56,5 +74,6 @@ function* watchAddUser() {
 export default function* userRootSaga() {
   yield spawn(watchGetUserList);
   yield spawn(watchAddUser);
-  yield spawn(watchEditUser);
+  yield spawn(watchGetUserDetails)
+  yield spawn(watchUpdateUser);
 }

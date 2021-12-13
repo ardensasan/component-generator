@@ -1,18 +1,18 @@
 // eslint-disable-next-line
 export default [
-{
-    key: "firstname"
-},
+  {
+    key: "firstname",
+  },
 
-{
-    key: "lastname"
-},
+  {
+    key: "lastname",
+  },
 
-{
-    key: "username"
-},
+  {
+    key: "username",
+  },
 
-{
-    key: "password"
-},
-]
+  {
+    key: "password",
+  },
+];

@@ -8,27 +8,35 @@ import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, Fragment } from "react";
 import { toTitleCase } from "../../utils/string";
-import { addUser, getUserList } from "./action";
+import { getUserDetails, getUserList, openDialog } from "./action";
 import fields from "./tableFields";
-import Form from "../../common/components/Form";
+import DialogForm from "../../common/components/DialogForm";
 import { Button } from "@mui/material";
 //TODO ADD EDIT
 const User = () => {
   const dispatch = useDispatch();
   const userList = useSelector((state: any) => state.user.userList);
-  const defaultDialogFields = useSelector(
-    (state: any) => state.user.defaultDialogFields
+  const defaultFieldValues = useSelector(
+    (state: any) => state.user.defaultFieldValues
   );
+  const dialog = useSelector((state: any) => state.user.dialog);
+  const handleNew = () =>{
+    dispatch(openDialog())
+  }
+
+  const handleEdit = (id:string) =>{
+    dispatch(getUserDetails(id))
+  }
   useEffect(() => {
     dispatch(getUserList());
   }, [dispatch]);
   return (
     <Fragment>
-      <Form
-        addItem={addUser}
+      <Button variant="outlined" onClick={handleNew}>New</Button>
+      <DialogForm
         fields={fields}
-        type={"New"}
-        defaultDialogFields={defaultDialogFields}
+        dialog={dialog}
+        defaultFieldValues={defaultFieldValues}
       />
       <TableContainer component={Paper}>
         <Table>
@@ -48,12 +56,7 @@ const User = () => {
                       return <TableCell>{user[key]}</TableCell>;
                     })}
                     <TableCell>
-                      <Form
-                        addItem={addUser}
-                        defaultDialogFields={defaultDialogFields}
-                        fields={fields}
-                        type={"Edit"}
-                      />
+                      <Button onClick={()=>handleEdit(user._id)}>Edit</Button>
                       <Button>Delete</Button>
                     </TableCell>
                   </TableRow>
