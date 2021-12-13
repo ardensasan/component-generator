@@ -57,6 +57,11 @@ module.exports = (plop) => {
       },
       {
         type: "add",
+        path: "./src/component/{{titleCase name}}/Dialog/New/index.tsx",
+        templateFile: "src/template/component/Dialog/New.hbs",
+      },
+      {
+        type: "add",
         path: "src/component/{{titleCase name}}/action.ts",
         templateFile: "src/template/action/DenseTable.hbs",
       },
@@ -91,12 +96,6 @@ module.exports = (plop) => {
           }
           return "Field name is required";
         },
-      },
-      {
-        type: "confirm",
-        name: "integrate",
-        message: "Integrate API",
-        default: true,
       },
       {
         type: "recursive",

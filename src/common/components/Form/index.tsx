@@ -10,36 +10,41 @@ import {
   OutlinedInput,
 } from "@mui/material";
 import { Fragment, useState } from "react";
-import fields from "../../tableFields";
-import { toTitleCase } from "../../../../utils/string";
+import { toTitleCase } from "../../../utils/string";
 import { useDispatch } from "react-redux";
-import { addUser } from "../../action";
-import { hasEmptyField } from '../../../../utils/validation'
-const New = () => {
+import { hasEmptyField } from "../../../utils/validation";
+import { Field, FormTypes } from "./types";
+const Form = (props: FormTypes) => {
+  const { addItem, editItem, fields, type, defaultDialogFields } = props;
+  const [dialogFields,setDialogFields] = useState(defaultDialogFields) 
   const dispatch = useDispatch();
   const [open, setOpen] = useState<boolean>(false);
-  const [dialogFields, setDialogFields] = useState<any>({});
   const handleSave = () => {
-    if(!hasEmptyField(fields,dialogFields)){
-      dispatch(addUser(dialogFields))
-      setOpen(false)
-    } 
+    if (!hasEmptyField(fields, dialogFields)) {
+      if(addItem){
+        dispatch(addItem(dialogFields));
+      }
+      if(editItem){
+        
+      }
+      setOpen(false);
+    }
   };
 
   return (
     <Fragment>
-      <Button variant="outlined" onClick={()=>setOpen(true)}>
-        New
+      <Button variant="outlined" onClick={() => setOpen(true)}>
+        {type}
       </Button>
       <Dialog
         open={open}
-        onClose={()=>setOpen(false)}
+        onClose={() => setOpen(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">Add User</DialogTitle>
         <DialogContent>
-          {fields.map(({ key }) => {
+          {fields.map(({ key }: Field) => {
             return (
               <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
                 <InputLabel htmlFor="outlined-adornment-password">
@@ -51,6 +56,7 @@ const New = () => {
                   inputProps={{
                     "aria-label": "weight",
                   }}
+                  value={dialogFields[key]}
                   onChange={(event: any) => {
                     setDialogFields({
                       ...dialogFields,
@@ -64,7 +70,7 @@ const New = () => {
           <DialogContentText id="alert-dialog-description"></DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={()=>setOpen(false)}>Cancel</Button>
+          <Button onClick={() => setOpen(false)}>Cancel</Button>
           <Button onClick={handleSave} autoFocus>
             Save
           </Button>
@@ -74,4 +80,4 @@ const New = () => {
   );
 };
 
-export default New;
+export default Form;

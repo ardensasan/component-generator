@@ -10,3 +10,11 @@ export const addUser = (data: any) => {
     data
   };
 };
+
+
+export const editUser = (data: any) => {
+  return {
+    type: "EDIT_USER_REQUESTED",
+    data
+  };
+};
