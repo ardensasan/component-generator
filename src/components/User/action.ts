@@ -7,33 +7,38 @@ export const getUserList = () => {
 export const addUser = (data: any) => {
   return {
     type: "ADD_USER_REQUESTED",
-    data
+    data,
   };
 };
 
 export const updateUser = (data: any) => {
   return {
     type: "UPDATE_USER_REQUESTED",
-    data
+    data,
   };
 };
 
 export const getUserDetails = (id: string) => {
   return {
     type: "GET_USER_DETAILS_REQUESTED",
-    id
+    id,
   };
 };
 
-export const openDialog = () =>{
+export const deleteUser = (id: string) => {
   return {
-    type: "OPEN_DIALOG"
-  }
-}
+    type: "DELETE_USER_REQUESTED",
+    id,
+  };
+};
+export const openDialog = () => {
+  return {
+    type: "OPEN_DIALOG",
+  };
+};
 
 export const closeDialog = () => {
   return {
-    type: "CLOSE_DIALOG"
-  }
-}
-
+    type: "CLOSE_DIALOG",
+  };
+};

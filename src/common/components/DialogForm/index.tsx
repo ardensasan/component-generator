@@ -16,7 +16,6 @@ import { addUser, closeDialog, updateUser } from "../../../components/User/actio
 const New = ({ fields, defaultFieldValues, dialog }: NewDialog) => {
   const dispatch = useDispatch();
   const [fieldValues, setFieldValues] = useState(defaultFieldValues);
-
   const handleSave = () => {
     if(fieldValues.hasOwnProperty("_id")) return dispatch(updateUser(fieldValues))
     dispatch(addUser(fieldValues));

@@ -52,8 +52,24 @@ function* getUserDetails(data:any){
     yield put({ type: "GET_USER_DETAILS",payload: result.result });
     return;
   }
-
   yield put({ type: result });
+}
+
+function* deleteUser(data:any){
+  const config = {
+    method: "delete",
+    url: `${apiRoot}user/${data.id}`
+  };
+  const { data: result } = yield call(request, config);
+  if(result === "SUCCESS"){
+    yield put({ type: "GET_USER_LIST_REQUESTED"});
+    return;
+  }
+  yield put({ type: result });
+}
+
+function* watchDeleteUser(){
+  yield takeLatest("DELETE_USER_REQUESTED",deleteUser)
 }
 
 function* watchGetUserDetails(){
@@ -76,4 +92,5 @@ export default function* userRootSaga() {
   yield spawn(watchAddUser);
   yield spawn(watchGetUserDetails)
   yield spawn(watchUpdateUser);
+  yield spawn(watchDeleteUser)
 }
