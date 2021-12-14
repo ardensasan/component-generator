@@ -1,25 +1,36 @@
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, Fragment } from 'react';
-import { toTitleCase } from '../../utils/string';
-import { get{{pascalCase name}}List } from './action'
-import fields from './tableFields'
+import { useEffect, Fragment } from "react";
+import { toTitleCase } from "../../utils/string";
+import { delete{{pascalCase name}}, get{{pascalCase name}}Details, get{{pascalCase name}}List, openDialog } from "./action";
+import fields from "./tableFields";
+import DialogForm from "../../common/components/DialogForm";
+import { Button } from "@mui/material";
+//TODO ADD EDIT
 const {{titleCase name}} = () => {
   const dispatch = useDispatch();
-  const {{camelCase name}}List = useSelector(
-    (state: any) => state.{{snakeCase name}}.{{snakeCase name}}List
+  const {{camelCase name}}List = useSelector((state: any) => state.{{camelCase name}}.{{camelCase name}}List);
+  const defaultFieldValues = useSelector(
+    (state: any) => state.{{camelCase name}}.defaultFieldValues
   );
-   useEffect (()=> {
-    dispatch(get{{pascalCase name}}List() );
-  },[dispatch])
+  const dialog = useSelector((state: any) => state.{{camelCase name}}.dialog);
+  useEffect(() => {
+    dispatch(get{{pascalCase name}}List());
+  }, [dispatch]);
   return (
     <Fragment>
+      <Button variant="outlined" onClick={()=>dispatch(openDialog())}>New</Button>
+      <DialogForm
+        fields={fields}
+        dialog={dialog}
+        defaultFieldValues={defaultFieldValues}
+      />
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -35,8 +46,12 @@ const {{titleCase name}} = () => {
                 <Fragment>
                   <TableRow>
                     {fields.map(({ key }) => {
-                      return <TableCell>{ {{camelCase name}}[key] }</TableCell>;
+                      return <TableCell>{ {{camelCase name}}[key]}</TableCell>;
                     })}
+                    <TableCell>
+                      <Button onClick={()=>dispatch(get{{pascalCase name}}Details({{camelCase name}}._id))}>Edit</Button>
+                      <Button onClick={()=>dispatch(delete{{pascalCase name}}({{camelCase name}}._id))}>Delete</Button>
+                    </TableCell>
                   </TableRow>
                 </Fragment>
               );
@@ -45,7 +60,7 @@ const {{titleCase name}} = () => {
         </Table>
       </TableContainer>
     </Fragment>
-  )
-}
+  );
+};
 
-export default {{titleCase name}}
+export default {{titleCase name}};
