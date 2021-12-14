@@ -1,26 +1,16 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  FormControl,
-  OutlinedInput,
-} from "@mui/material";
-import { Fragment, useEffect, useState } from "react";
-import { toTitleCase } from "../../../utils/string";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, OutlinedInput} from '@mui/material'
 import { useDispatch } from "react-redux";
-import { Field, NewDialog } from "./types";
-import { addUser, closeDialog, updateUser } from "../../../components/User/action";
-const New = ({ fields, defaultFieldValues, dialog }: NewDialog) => {
+import { useEffect, Fragment, useState } from "react";
+import { toTitleCase } from "../../../utils/string";
+import { add{{pascalCase name}}, closeDialog, update{{pascalCase name}} } from "../../../components/{{titleCase name}}/action";
+import { Field, Form } from './types';
+const FormDialog = ({ fields, defaultFieldValues, dialog }: Form) => {
   const dispatch = useDispatch();
   const [fieldValues, setFieldValues] = useState(defaultFieldValues);
   const handleSave = () => {
-    if(fieldValues.hasOwnProperty("_id")) return dispatch(updateUser(fieldValues))
-    dispatch(addUser(fieldValues));
+    if(fieldValues.hasOwnProperty("_id")) return dispatch(update{{pascalCase name}}(fieldValues))
+    dispatch(add{{pascalCase name}}(fieldValues));
   };
-
   useEffect(() => {
     setFieldValues(defaultFieldValues);
   }, [defaultFieldValues]);
@@ -32,17 +22,17 @@ const New = ({ fields, defaultFieldValues, dialog }: NewDialog) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">Add User</DialogTitle>
+        <DialogTitle id="alert-dialog-title">Add {{titleCase name}}</DialogTitle>
         <DialogContent>
           {fields.map(({ key }: Field) => {
             return (
-              <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+              <FormControl sx={ { m: 1, width: "25ch" } } variant="outlined">
                 <OutlinedInput
                   id="outlined-adornment-weight"
                   aria-describedby="outlined-weight-helper-text"
-                  inputProps={{
+                  inputProps={ {
                     "aria-label": "weight",
-                  }}
+                  } }
                   value={fieldValues[key]}
                   placeholder={toTitleCase(key)}
                   onChange={(event: any) => {
@@ -68,4 +58,4 @@ const New = ({ fields, defaultFieldValues, dialog }: NewDialog) => {
   );
 };
 
-export default New;
+export default FormDialog;

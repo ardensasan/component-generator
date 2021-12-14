@@ -1,18 +1,10 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from "@mui/material";
+import FormDialog from "./FormDialog";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, Fragment } from "react";
 import { toTitleCase } from "../../utils/string";
-import { delete{{pascalCase name}}, get{{pascalCase name}}Details, get{{pascalCase name}}List, openDialog } from "./action";
 import fields from "./tableFields";
-import DialogForm from "../../common/components/DialogForm";
-import { Button } from "@mui/material";
-//TODO ADD EDIT
+import { delete{{pascalCase name}}, get{{pascalCase name}}Details, get{{pascalCase name}}List, openDialog } from "./action";
 const {{titleCase name}} = () => {
   const dispatch = useDispatch();
   const {{camelCase name}}List = useSelector((state: any) => state.{{camelCase name}}.{{camelCase name}}List);
@@ -26,7 +18,7 @@ const {{titleCase name}} = () => {
   return (
     <Fragment>
       <Button variant="outlined" onClick={()=>dispatch(openDialog())}>New</Button>
-      <DialogForm
+      <FormDialog
         fields={fields}
         dialog={dialog}
         defaultFieldValues={defaultFieldValues}

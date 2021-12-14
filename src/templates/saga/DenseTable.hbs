@@ -1,39 +1,97 @@
-import { takeLatest, call, put, spawn } from "@redux-saga/core/effects"
-import {apiRoot} from "../../common/api";
+import { takeLatest, call, put, spawn } from "@redux-saga/core/effects";
+import { apiRoot } from "../../common/api";
 import request from "../../utils/request";
-
-function* get{{pascalCase name}}List(){
+function* get{{pascalCase name}}List() {
   const config = {
     method: "get",
-    url: `${apiRoot}{{lowerCase name}}`,
+    url: `${apiRoot}{{camelCase name}}`,
+  };
+  const { data } = yield call(request, config);
+  if (data.type === "SUCCESS") {
+    yield put({ type: "GET_{{constantCase name}}_LIST", payload: data.result });
+    return;
   }
-  const {data} = yield call(request,config)
-  yield put({ type: "GET_{{constantCase name}}_LIST",payload: data})
+  yield put({ type: "ERROR" });
 }
 
 function* add{{pascalCase name}}(data: any) {
   const config = {
     method: "post",
-    url: `${apiRoot}{{lowerCase name}}`,
-    data
+    url: `${apiRoot}{{camelCase name}}`,
+    data,
+  };
+  const { data: result } = yield call(request, config);
+  if (result.type === "ADD_{{constantCase name}}_REQUESTED") {
+    yield put({ type: "GET_{{constantCase name}}_LIST_REQUESTED" });
+    return;
   }
-  const {data:result} = yield call(request,config)
-  if(result === "ADD_USER_REQUESTED"){
-    yield put({type: "GET_{{constantCase name}}_LIST"})
-    return
-  } 
-  yield put({ type: result})
+  yield put({ type: result });
+}
+
+function* update{{pascalCase name}}(data: any) {
+  const config = {
+    method: "put",
+    url: `${apiRoot}{{camelCase name}}`,
+    data
+  };
+  const { data: result } = yield call(request, config);
+  if (result === "SUCCESS") {
+    yield put({ type: "GET_{{constantCase name}}_LIST_REQUESTED" });
+    return;
+  }
+  yield put({ type: result });
+}
+
+function* get{{pascalCase name}}Details(data:any){
+  const config = {
+    method: "get",
+    url: `${apiRoot}{{camelCase name}}/${data.id}`,
+    data
+  };
+  const { data: result } = yield call(request, config);
+  if(result.type === "SUCCESS"){
+    yield put({ type: "GET_{{constantCase name}}_DETAILS",payload: result.result });
+    return;
+  }
+  yield put({ type: result });
+}
+
+function* delete{{pascalCase name}}(data:any){
+  const config = {
+    method: "delete",
+    url: `${apiRoot}{{camelCase name}}/${data.id}`
+  };
+  const { data: result } = yield call(request, config);
+  if(result === "SUCCESS"){
+    yield put({ type: "GET_{{constantCase name}}_LIST_REQUESTED"});
+    return;
+  }
+  yield put({ type: result });
+}
+
+function* watchDelete{{pascalCase name}}(){
+  yield takeLatest("DELETE_{{constantCase name}}_REQUESTED",delete{{pascalCase name}})
+}
+
+function* watchGet{{pascalCase name}}Details(){
+  yield takeLatest("GET_{{constantCase name}}_DETAILS_REQUESTED", get{{pascalCase name}}Details);
+}
+
+function* watchUpdate{{pascalCase name}}() {
+  yield takeLatest("UPDATE_{{constantCase name}}_REQUESTED", update{{pascalCase name}});
+}
+
+function* watchGet{{pascalCase name}}List() {
+  yield takeLatest("GET_{{constantCase name}}_LIST_REQUESTED", get{{pascalCase name}}List);
 }
 
 function* watchAdd{{pascalCase name}}() {
   yield takeLatest("ADD_{{constantCase name}}_REQUESTED", add{{pascalCase name}});
 }
-
-function* watch{{pascalCase name}}Requested(){
-    yield takeLatest("GET_{{constantCase name}}_LIST_REQUESTED",get{{pascalCase name}}List)   
-}
-
-export default function* {{camelCase name}}RootSaga(){
-    yield spawn(watch{{pascalCase name}}Requested)
-    yield spawn(watchAdd{{pascalCase name}});
+export default function* {{camelCase name}}RootSaga() {
+  yield spawn(watchGet{{pascalCase name}}List);
+  yield spawn(watchAdd{{pascalCase name}});
+  yield spawn(watchGet{{pascalCase name}}Details)
+  yield spawn(watchUpdate{{pascalCase name}});
+  yield spawn(watchDelete{{pascalCase name}})
 }

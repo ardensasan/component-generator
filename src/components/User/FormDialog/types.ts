@@ -1,4 +1,4 @@
-export interface NewDialog{
+export interface Form{
     fields: Array<Field>,
     defaultFieldValues: any
     dialog: boolean

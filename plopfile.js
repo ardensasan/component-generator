@@ -16,14 +16,14 @@ module.exports = (plop) => {
         path: "./src/App.tsx",
         pattern: /(\/\/COMPONENT IMPORTS)/g,
         template:
-          'import {{titleCase name}} from "./component/{{titleCase name}}"\n$1',
+          'import {{titleCase name}} from "./components/{{titleCase name}}"\n$1',
         type: "modify",
       },
       {
         path: "./src/common/reducer.ts",
         pattern: /(\/\/REDUCER IMPORTS)/g,
         template:
-          'import {{camelCase name}} from "../component/{{titleCase name}}/reducer"\n$1',
+          'import {{camelCase name}} from "../components/{{titleCase name}}/reducer"\n$1',
         type: "modify",
       },
       {
@@ -36,7 +36,7 @@ module.exports = (plop) => {
         path: "./src/common/saga.ts",
         pattern: /(\/\/SAGA IMPORTS)/g,
         template:
-          "import {{camelCase name}}RootSaga from '../component/{{titleCase name}}/saga'\n$1",
+          "import {{camelCase name}}RootSaga from '../components/{{titleCase name}}/saga'\n$1",
         type: "modify",
       },
       {
@@ -52,33 +52,38 @@ module.exports = (plop) => {
     return [
       {
         type: "add",
-        path: "./src/component/{{titleCase name}}/index.tsx",
-        templateFile: "src/template/component/DenseTable.hbs",
+        path: "./src/components/{{titleCase name}}/index.tsx",
+        templateFile: "src/templates/component/DenseTable.hbs",
       },
       {
         type: "add",
-        path: "./src/component/{{titleCase name}}/Dialog/New/index.tsx",
-        templateFile: "src/template/component/Dialog/New.hbs",
+        path: "./src/components/{{titleCase name}}/FormDialog/index.tsx",
+        templateFile: "src/templates/component/FormDialog/Form.hbs",
       },
       {
         type: "add",
-        path: "src/component/{{titleCase name}}/action.ts",
-        templateFile: "src/template/action/DenseTable.hbs",
+        path: "./src/components/{{titleCase name}}/FormDialog/types.ts",
+        templateFile: "src/templates/component/FormDialog/Types.hbs",
       },
       {
         type: "add",
-        path: "src/component/{{titleCase name}}/reducer.ts",
-        templateFile: "src/template/reducer/DenseTable.hbs",
+        path: "src/components/{{titleCase name}}/action.ts",
+        templateFile: "src/templates/action/DenseTable.hbs",
       },
       {
         type: "add",
-        path: "src/component/{{titleCase name}}/saga.ts",
-        templateFile: "src/template/saga/DenseTable.hbs",
+        path: "src/components/{{titleCase name}}/reducer.ts",
+        templateFile: "src/templates/reducer/DenseTable.hbs",
       },
       {
         type: "add",
-        path: "./src/component/{{titleCase name}}/tableFields.ts",
-        templateFile: "src/template/tableFields.hbs",
+        path: "src/components/{{titleCase name}}/saga.ts",
+        templateFile: "src/templates/saga/DenseTable.hbs",
+      },
+      {
+        type: "add",
+        path: "./src/components/{{titleCase name}}/tableFields.ts",
+        templateFile: "src/templates/tableFields.hbs",
       },
     ];
   };
