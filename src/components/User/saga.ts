@@ -46,7 +46,6 @@ function* getUserDetails(data:any){
   const config = {
     method: "get",
     url: `${apiRoot}user/${data.id}`,
-    data
   };
   const { data: result } = yield call(request, config);
   if(result.type === "SUCCESS"){
@@ -59,7 +58,8 @@ function* getUserDetails(data:any){
 function* deleteUser(data:any){
   const config = {
     method: "delete",
-    url: `${apiRoot}user/${data.id}`
+    url: `${apiRoot}user`,
+    data
   };
   const { data: result } = yield call(request, config);
   if(result === "SUCCESS"){
