@@ -47,6 +47,12 @@ module.exports = (plop) => {
         template: "yield spawn({{camelCase name}}RootSaga)\n$1",
         type: "modify",
       },
+      {
+        path: "./src/common/componentList.ts",
+        pattern: /(\/\/COMPONENTS)/g,
+        template: "{{titleCase name}},",
+        type: "modify",
+      },
     ];
   };
 

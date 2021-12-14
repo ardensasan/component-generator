@@ -1,5 +1,6 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from "@mui/material";
 import FormDialog from "./FormDialog";
+import Sidebar from "../../common/components/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, Fragment } from "react";
 import { toTitleCase } from "../../utils/string";
@@ -17,6 +18,7 @@ const {{titleCase name}} = () => {
   }, [dispatch]);
   return (
     <Fragment>
+      <Sidebar/>
       <Button variant="outlined" onClick={()=>dispatch(openDialog())}>New</Button>
       <FormDialog
         fields={fields}

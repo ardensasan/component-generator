@@ -1,10 +1,20 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from "@mui/material";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+} from "@mui/material";
 import FormDialog from "./FormDialog";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, Fragment } from "react";
 import { toTitleCase } from "../../utils/string";
 import fields from "./tableFields";
 import { deleteUser, getUserDetails, getUserList, openDialog } from "./action";
+import Sidebar from "../../common/components/Sidebar";
 
 //TODO MENU BAR
 const User = () => {
@@ -19,7 +29,10 @@ const User = () => {
   }, [dispatch]);
   return (
     <Fragment>
-      <Button variant="outlined" onClick={()=>dispatch(openDialog())}>New</Button>
+      <Sidebar />
+      <Button variant="outlined" onClick={() => dispatch(openDialog())}>
+        New
+      </Button>
       <FormDialog
         fields={fields}
         dialog={dialog}
@@ -35,16 +48,22 @@ const User = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            { userList.map((user: any) => {
+            {userList.map((user: any) => {
               return (
                 <Fragment>
                   <TableRow>
                     {fields.map(({ key }) => {
-                      return <TableCell>{ user[key]}</TableCell>;
+                      return <TableCell>{user[key]}</TableCell>;
                     })}
                     <TableCell>
-                      <Button onClick={()=>dispatch(getUserDetails(user._id))}>Edit</Button>
-                      <Button onClick={()=>dispatch(deleteUser(user._id))}>Delete</Button>
+                      <Button
+                        onClick={() => dispatch(getUserDetails(user._id))}
+                      >
+                        Edit
+                      </Button>
+                      <Button onClick={() => dispatch(deleteUser(user._id))}>
+                        Delete
+                      </Button>
                     </TableCell>
                   </TableRow>
                 </Fragment>
