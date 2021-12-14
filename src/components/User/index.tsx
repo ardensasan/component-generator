@@ -5,6 +5,8 @@ import { useEffect, Fragment } from "react";
 import { toTitleCase } from "../../utils/string";
 import fields from "./tableFields";
 import { deleteUser, getUserDetails, getUserList, openDialog } from "./action";
+
+//TODO MENU BAR
 const User = () => {
   const dispatch = useDispatch();
   const userList = useSelector((state: any) => state.user.userList);

@@ -1,7 +1,9 @@
 const pluralize = require("pluralize");
 const recursive = require("inquirer-recursive");
+const axios = require("axios");
 module.exports = (plop) => {
   plop.inquirer.registerPrompt("recursive", recursive);
+
 
   const modifyFiles = (data) => {
     data.name = pluralize.singular(data.name);
@@ -88,6 +90,18 @@ module.exports = (plop) => {
     ];
   };
 
+  plop.setActionType('createEndpoint', async ({name})=>{
+    const config = {
+      method: "post",
+      url: `http://localhost:3001/create/api/${name}`,
+    }
+    const {data} = await axios(config)
+    if(data !== "SUCCESS"){
+      throw "ERROR CREATING ENDPOINT"
+    }
+    return;
+  })
+
   plop.setGenerator("Select table with dialog", {
     description: "Create a component with select table and dialog",
     prompts: [
@@ -124,6 +138,7 @@ module.exports = (plop) => {
     ],
     actions: (data) => {
       let actions = [];
+      actions = [...actions,{ type: 'createEndpoint'}]
       actions = [...actions, ...modifyFiles(data)];
       actions = [...actions, ...addFiles(data)];
       return actions;
