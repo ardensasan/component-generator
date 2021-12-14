@@ -9,7 +9,7 @@ function* getUserList() {
   const { data } = yield call(request, config);
   if (data.type === "SUCCESS") {
     yield put({ type: "GET_USER_LIST", payload: data.result });
-    return
+    return;
   }
   yield put({ type: "ERROR" });
 }
@@ -35,7 +35,6 @@ function* updateUser(data: any) {
     data
   };
   const { data: result } = yield call(request, config);
-  console.log('%c 🍼️ result: ', 'font-size:20px;background-color: #3F7CFF;color:#fff;', result);
   if (result === "SUCCESS") {
     yield put({ type: "GET_USER_LIST_REQUESTED" });
     return;

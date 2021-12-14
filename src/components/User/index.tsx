@@ -1,11 +1,10 @@
-import { Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper} from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from "@mui/material";
+import FormDialog from "./FormDialog";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, Fragment } from "react";
 import { toTitleCase } from "../../utils/string";
-import { deleteUser, getUserDetails, getUserList, openDialog } from "./action";
 import fields from "./tableFields";
-import FormDialog from "./FormDialog";
-import { Button } from "@mui/material";
+import { deleteUser, getUserDetails, getUserList, openDialog } from "./action";
 const User = () => {
   const dispatch = useDispatch();
   const userList = useSelector((state: any) => state.user.userList);
