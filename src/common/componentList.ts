@@ -1,4 +1,5 @@
 const componentList =  ["Home", 
+"User",
 //COMPONENTS
-"User"];
+];
 export default componentList

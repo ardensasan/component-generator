@@ -4,7 +4,6 @@ const axios = require("axios");
 module.exports = (plop) => {
   plop.inquirer.registerPrompt("recursive", recursive);
 
-
   const modifyFiles = (data) => {
     data.name = pluralize.singular(data.name);
     return [
@@ -50,7 +49,7 @@ module.exports = (plop) => {
       {
         path: "./src/common/componentList.ts",
         pattern: /(\/\/COMPONENTS)/g,
-        template: "{{titleCase name}},",
+        template: '"{{titleCase name}}",\n$1',
         type: "modify",
       },
     ];
@@ -96,17 +95,17 @@ module.exports = (plop) => {
     ];
   };
 
-  plop.setActionType('createEndpoint', async ({name})=>{
+  plop.setActionType("createEndpoint", async ({ name }) => {
     const config = {
       method: "post",
       url: `http://localhost:3001/create/api/${name}`,
-    }
-    const {data} = await axios(config)
-    if(data !== "SUCCESS"){
-      throw "ERROR CREATING ENDPOINT"
+    };
+    const { data } = await axios(config);
+    if (data !== "SUCCESS") {
+      throw "ERROR CREATING ENDPOINT";
     }
     return;
-  })
+  });
 
   plop.setGenerator("Select table with dialog", {
     description: "Create a component with select table and dialog",
@@ -144,7 +143,7 @@ module.exports = (plop) => {
     ],
     actions: (data) => {
       let actions = [];
-      actions = [...actions,{ type: 'createEndpoint'}]
+      actions = [...actions, { type: "createEndpoint" }];
       actions = [...actions, ...modifyFiles(data)];
       actions = [...actions, ...addFiles(data)];
       return actions;

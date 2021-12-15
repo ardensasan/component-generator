@@ -59,7 +59,8 @@ function* get{{pascalCase name}}Details(data:any){
 function* delete{{pascalCase name}}(data:any){
   const config = {
     method: "delete",
-    url: `${apiRoot}{{camelCase name}}/${data.id}`
+    url: `${apiRoot}{{camelCase name}}/`,
+    data
   };
   const { data: result } = yield call(request, config);
   if(result === "SUCCESS"){

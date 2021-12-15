@@ -1,11 +1,9 @@
-import Sidebar from "../../common/components/Sidebar";
-import { Fragment } from "react";
+import Menu from "../../common/components/Menu";
 const Home = () => {
   return (
-    <Fragment>
-      <Sidebar />
+      <Menu>
       Home
-    </Fragment>
+    </Menu>
   );
 };
 

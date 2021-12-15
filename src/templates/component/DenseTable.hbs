@@ -1,6 +1,6 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from "@mui/material";
 import FormDialog from "./FormDialog";
-import Sidebar from "../../common/components/Sidebar";
+import Menu from "../../common/components/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, Fragment } from "react";
 import { toTitleCase } from "../../utils/string";
@@ -17,8 +17,7 @@ const {{titleCase name}} = () => {
     dispatch(get{{pascalCase name}}List());
   }, [dispatch]);
   return (
-    <Fragment>
-      <Sidebar/>
+    <Menu>
       <Button variant="outlined" onClick={()=>dispatch(openDialog())}>New</Button>
       <FormDialog
         fields={fields}
@@ -53,7 +52,7 @@ const {{titleCase name}} = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </Fragment>
+    </Menu>
   );
 };
 

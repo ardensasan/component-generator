@@ -7,19 +7,19 @@ import {
   List,
   ListItem,
   ListItemText,
-  Toolbar,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import componentList from "../componentList";
 const drawerWidth = 240;
-const Sidebar = () => {
+const Menu = ({children}:any) => {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar
         position="fixed"
         sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
-      ></AppBar>
+      >
+      </AppBar>
       <Drawer
         sx={{
           width: drawerWidth,
@@ -32,7 +32,6 @@ const Sidebar = () => {
         variant="permanent"
         anchor="left"
       >
-        <Toolbar />
         <Divider />
         <List>
           {componentList.map((text, index) => (
@@ -52,8 +51,14 @@ const Sidebar = () => {
           ))}
         </List>
       </Drawer>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+      >
+        {children}
+      </Box>
     </Box>
   );
 };
 
-export default Sidebar;
+export default Menu;
