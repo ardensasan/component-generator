@@ -98,7 +98,7 @@ module.exports = (plop) => {
   plop.setActionType("createEndpoint", async ({ name }) => {
     const config = {
       method: "post",
-      url: `http://localhost:3001/create/api/${name}`,
+      url: `https://template-rdn-api.vercel.app/create/api/${name}`,
     };
     const { data } = await axios(config);
     if (data !== "SUCCESS") {
